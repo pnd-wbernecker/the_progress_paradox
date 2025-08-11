@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page application with a sticky top navigation. The page now opens with a provocative, styled catchphrase to immediately hook the user. The "Exploring the Cycle" section contains the four interactive icons, placed directly above the content they control. A distinct info box appears above the three content cards, providing a sourced justification for the chosen date of each cycle. -->
-    <!-- Visualization & Content Choices: 1. Catchphrase: A new, prominently styled quote at the top. 2. The Core Cycle Icons: Located within the "Cycle" section for better context. 3. Info Box: A dynamic element displaying sourced information. 4. Countermeasure Markets: Bar Chart (Chart.js). 5. The Core Cycle Display: A three-column layout. 6. Evidence & Insights: A grid-based section with "fact cards". 7. Theoretical Concepts: An accordion/collapsible card interface. -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation. The page now opens with a full-screen "hero" section containing a provocative catchphrase and the main title to immediately hook the user. This is followed by the main content below the fold, starting with the interactive cycle explorer. This structure prioritizes a strong narrative opening. -->
+    <!-- Visualization & Content Choices: 1. Catchphrase: A new, prominently styled quote at the top with a startup animation. 2. The Core Cycle Icons: Located within the "Cycle" section for better context. 3. Info Box: A dynamic element displaying sourced information. 4. Countermeasure Markets: Bar Chart (Chart.js). 5. The Core Cycle Display: A three-column layout. 6. Evidence & Insights: A grid-based section with "fact cards". 7. Theoretical Concepts: An accordion/collapsible card interface. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -19,7 +19,7 @@
             background-color: #FDFBF5;
             color: #36454F;
         }
-        h1, h2, h3, .catchphrase {
+        h1, h2, h3, .catchphrase, .hero-title, .hero-subtitle {
             font-family: 'Lora', serif;
         }
         .catchphrase-container {
@@ -28,9 +28,9 @@
         .catchphrase::before {
             content: '“';
             position: absolute;
-            top: -1.5rem;
-            left: -2.5rem;
-            font-size: 8rem;
+            top: -2.5rem;
+            left: -3.5rem;
+            font-size: 10rem;
             color: rgba(54, 69, 79, 0.08);
             z-index: 0;
             line-height: 1;
@@ -113,6 +113,46 @@
             background-color: white;
             border-left: 5px solid #4682B4;
         }
+        .hero-section {
+            animation: fadeIn 1s ease-out;
+        }
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+        .catchphrase { animation-delay: 0.2s; }
+        .hero-title { animation-delay: 0.6s; }
+        .hero-subtitle { animation-delay: 0.8s; }
+        .scroll-indicator { animation-delay: 1.2s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        .scroll-indicator span {
+            animation: bounce 2s infinite;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -145,19 +185,23 @@
     </header>
 
     <main>
-        <section class="py-20 md:py-28 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="max-w-3xl mx-auto text-center catchphrase-container">
-                    <h2 class="catchphrase text-3xl md:text-4xl font-semibold italic text-gray-700 relative z-10">First, we outsourced movement and bought it back as a gym membership. Now that we're outsourcing thought, what will the subscription cost?</h2>
+        <section class="hero-section min-h-screen flex flex-col items-center justify-center bg-white relative">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-4xl mx-auto catchphrase-container mb-12">
+                    <h2 class="catchphrase text-4xl md:text-5xl font-light italic text-gray-700 relative z-10 fade-in-up">First, we outsourced movement and bought it back as a gym membership. Now that we're outsourcing thought, what will the subscription cost?</h2>
+                </div>
+                <div id="paradox">
+                    <h2 class="hero-title text-4xl md:text-5xl font-bold mb-4 fade-in-up">The Progress Paradox</h2>
+                    <p class="hero-subtitle text-lg md:text-xl text-gray-600 max-w-3xl mx-auto fade-in-up">Modern "progress" systematically generates lifestyle deficits in physical, nutritional, and mental well-being. These deficits are then addressed not by reversing the changes, but by creating new, commercial "countermeasure" industries. This application explores this self-perpetuating cycle, from our physical health to the future of our minds.</p>
                 </div>
             </div>
-        </section>
-
-        <section id="paradox" class="py-16 md:py-24 pt-0 bg-white">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">The Progress Paradox</h2>
-                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Modern "progress" systematically generates lifestyle deficits in physical, nutritional, and mental well-being. These deficits are then addressed not by reversing the changes, but by creating new, commercial "countermeasure" industries. This application explores this self-perpetuating cycle, from our physical health to the future of our minds.</p>
+            <div class="scroll-indicator absolute bottom-10 text-gray-500 fade-in-up">
+                <a href="#cycle" class="flex flex-col items-center space-y-2">
+                    <span class="text-xs">Explore</span>
+                    <span class="text-2xl">↓</span>
+                </a>
             </div>
+             <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
         </section>
 
         <section id="cycle" class="py-16 md:py-24">
