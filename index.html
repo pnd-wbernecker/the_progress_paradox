@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page application with a sticky top navigation for easy access to all sections. The core of the app is an interactive "Cycle" section where users select a domain (Body, Diet, Mind) to dynamically see the "Progress -> Problem -> Countermeasure" pattern unfold in a three-column layout. This structure transforms the linear report into an exploratory tool, making the central thesis tangible and easy to grasp. Data is visualized with interactive charts, and dense theory is broken down into digestible accordion cards. This design prioritizes user discovery and understanding over passive reading. -->
-    <!-- Visualization & Content Choices: 1. Countermeasure Markets: Bar Chart (Chart.js) to compare the immense scale of these industries. Hover interaction for details. 2. Workforce Shift: Line Chart (Chart.js) to show the decline of physical labor over time. 3. The Core Cycle: A dynamic three-column layout powered by Vanilla JS to demonstrate the report's central thesis interactively, now populated with richer text from the source document. 4. Theoretical Concepts: An accordion/collapsible card interface (HTML/CSS/JS) to present complex theories in a manageable, non-overwhelming format, now with expanded text and citations. All choices are made to enhance clarity and engagement. -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation for easy access to all sections. The core of the app is an interactive "Cycle" section where users select a domain (Body, Diet, Mind) to dynamically see the "Progress -> Problem -> Countermeasure" pattern unfold in a three-column layout. This structure transforms the linear report into an exploratory tool, making the central thesis tangible and easy to grasp. Data is visualized with interactive charts, and dense theory is broken down into digestible accordion cards. A new "Evidence & Insights" section has been added to provide more factual weight. This design prioritizes user discovery and understanding over passive reading. -->
+    <!-- Visualization & Content Choices: 1. Countermeasure Markets: Bar Chart (Chart.js) to compare the immense scale of these industries. Hover interaction for details. 2. Workforce Shift: Line Chart (Chart.js) to show the decline of physical labor over time. 3. The Core Cycle: A dynamic three-column layout powered by Vanilla JS to demonstrate the report's central thesis interactively. 4. Evidence & Insights: A new grid-based section with "fact cards" to present compelling statistics from the source report. 5. Theoretical Concepts: An accordion/collapsible card interface (HTML/CSS/JS) to present complex theories in a manageable, non-overwhelming format, with expanded text and citations. All choices are made to enhance clarity and engagement. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -72,6 +72,10 @@
             font-style: italic;
             color: #5c6b73;
         }
+        .fact-card {
+            background-color: white;
+            border-left: 5px solid #4682B4;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -82,6 +86,7 @@
             <div class="hidden md:flex space-x-8">
                 <a href="#paradox" class="nav-link text-gray-600">The Paradox</a>
                 <a href="#cycle" class="nav-link text-gray-600">The Cycle</a>
+                <a href="#evidence" class="nav-link text-gray-600">Evidence</a>
                 <a href="#theory" class="nav-link text-gray-600">The Theory</a>
                 <a href="#future" class="nav-link text-gray-600">The Future</a>
                 <a href="#solutions" class="nav-link text-gray-600">Solutions</a>
@@ -95,6 +100,7 @@
         <div id="mobile-menu" class="hidden md:hidden">
             <a href="#paradox" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Paradox</a>
             <a href="#cycle" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Cycle</a>
+            <a href="#evidence" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Evidence</a>
             <a href="#theory" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Theory</a>
             <a href="#future" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Future</a>
             <a href="#solutions" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Solutions</a>
@@ -161,8 +167,43 @@
                 </div>
             </div>
         </section>
+        
+        <section id="evidence" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Evidence & Insights</h2>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Key data points and historical facts that illustrate the Progress Paradox in action.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div class="fact-card p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2">The Bus Driver Study</h3>
+                        <p class="text-gray-700">A landmark 1950s study found that sedentary London bus drivers were twice as likely to have a heart attack as their active conductor colleagues, providing the first hard proof of the dangers of an inactive job.</p>
+                    </div>
+                    <div class="fact-card p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2">The 100-Calorie Deficit</h3>
+                        <p class="text-gray-700">Compared to just 50 years ago, the average American expends an estimated 100 fewer calories per day simply due to the decline in physical demands from work and daily life.</p>
+                    </div>
+                    <div class="fact-card p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2">The "Thrifty Gene" Mismatch</h3>
+                        <p class="text-gray-700">Our bodies evolved "thrifty genes" to efficiently store fat during times of food scarcity. In our modern world of caloric abundance, this survival trait has become a liability, driving obesity and metabolic disease.</p>
+                    </div>
+                    <div class="fact-card p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2">The Gym Churn Rate</h3>
+                        <p class="text-gray-700">The fitness industry's business model often relies on signing up more members than can be accommodated. Nearly 50% of new gym members quit within six months, highlighting the disconnect between the commercial solution and sustainable behavior.</p>
+                    </div>
+                    <div class="fact-card p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2">The Ozempic Boom</h3>
+                        <p class="text-gray-700">The U.S. market for new-generation obesity drugs like Ozempic and Wegovy more than doubled in a single year, from $5.1 billion in 2022 to $11.9 billion in 2023, signaling a massive shift toward pharmaceutical countermeasures.</p>
+                    </div>
+                    <div class="fact-card p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2">The Isolated Parent</h3>
+                        <p class="text-gray-700">Modern parenting has become a uniquely isolated and high-stress endeavor. The "village" of extended family and neighbors that once supported parents has largely disappeared, leaving parents feeling exhausted and perpetually behind.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section id="theory" class="py-16 md:py-24 bg-white">
+        <section id="theory" class="py-16 md:py-24">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">The Theory Behind the Paradox</h2>
@@ -173,7 +214,7 @@
             </div>
         </section>
 
-        <section id="future" class="py-16 md:py-24">
+        <section id="future" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">The Next Frontier: The Outsourced Mind</h2>
@@ -196,7 +237,7 @@
             </div>
         </section>
 
-        <section id="solutions" class="py-16 md:py-24 bg-white">
+        <section id="solutions" class="py-16 md:py-24">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">Breaking the Cycle</h2>
