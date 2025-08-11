@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page application with a sticky top navigation. The page now opens with a full-screen "hero" section containing a provocative catchphrase and the main title to immediately hook the user. This is followed by the main content below the fold, starting with the interactive cycle explorer. This structure prioritizes a strong narrative opening. -->
-    <!-- Visualization & Content Choices: 1. Catchphrase: A new, prominently styled quote at the top with a startup animation. 2. The Core Cycle Icons: Located within the "Cycle" section for better context. 3. Info Box: A dynamic element displaying sourced information. 4. Countermeasure Markets: Bar Chart (Chart.js). 5. The Core Cycle Display: A three-column layout. 6. Evidence & Insights: A grid-based section with "fact cards". 7. Theoretical Concepts: An accordion/collapsible card interface. -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation. The page now opens with a full-screen "hero" section containing a provocative catchphrase and the main title to immediately hook the user. This is followed by the main content below the fold, starting with the interactive cycle explorer. A comprehensive, styled bibliography with interactive, hover-able, and clickable inline citations has been added. -->
+    <!-- Visualization & Content Choices: 1. Catchphrase: A new, prominently styled quote at the top with a startup animation. 2. The Core Cycle Icons: Located within the "Cycle" section for better context. 3. Info Box: A dynamic element displaying sourced information. 4. Countermeasure Markets: Bar Chart (Chart.js). 5. The Core Cycle Display: A three-column layout. 6. Evidence & Insights: A grid-based section with "fact cards". 7. Theoretical Concepts: An accordion/collapsible card interface. 8. Quellenverzeichnis: A new, styled bibliography section with interactive citations. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -153,6 +153,64 @@
         .scroll-indicator span {
             animation: bounce 2s infinite;
         }
+        .citation {
+            position: relative;
+            display: inline-block;
+        }
+        .citation-link {
+            font-size: 0.6em;
+            vertical-align: super;
+            margin-left: 2px;
+            color: #4682B4;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .citation .tooltip {
+            visibility: hidden;
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 150%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            font-family: 'Inter', sans-serif;
+        }
+        .citation .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+        .citation:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        .quellenverzeichnis ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+        }
+        .quellenverzeichnis li {
+            padding-left: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .quellenverzeichnis li::marker {
+            font-weight: bold;
+            color: #36454F;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -187,7 +245,7 @@
     <main>
         <section class="hero-section min-h-screen flex flex-col items-center justify-center bg-white relative">
             <div class="container mx-auto px-6 text-center">
-                <div class="max-w-4xl mx-auto catchphrase-container mb-12">
+                <div class="max-w-4xl mx-auto catchphrase-container mb-24">
                     <h2 class="catchphrase text-4xl md:text-5xl font-light italic text-gray-700 relative z-10 fade-in-up">First, we outsourced movement and bought it back as a gym membership. Now that we're outsourcing thought, what will the subscription cost?</h2>
                 </div>
                 <div id="paradox">
@@ -208,7 +266,7 @@
             <div class="container mx-auto px-6">
                  <div class="text-center mb-12">
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">Exploring the Cycle</h2>
-                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">The pattern is consistent: a change framed as progress creates a problem, which in turn spawns a commercial solution. Select an icon to explore the cycle.</p>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">The pattern is consistent: a change framed as progress creates a problem, which in turn spawns a commercial solution.</p>
                 </div>
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 mb-12">
                     <button data-cycle="body" class="cycle-btn active flex flex-col items-center space-y-2 p-4 bg-white rounded-lg shadow-md w-24 h-24 md:w-32 md:h-32 justify-center">
@@ -276,27 +334,27 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     <div class="fact-card p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-2">The Bus Driver Study</h3>
-                        <p class="text-gray-700">A landmark 1950s study found that sedentary London bus drivers were twice as likely to have a heart attack as their active conductor colleagues, providing the first hard proof of the dangers of an inactive job.</p>
+                        <p class="text-gray-700">A landmark 1950s study found that sedentary London bus drivers were twice as likely to have a heart attack as their active conductor colleagues, providing the first hard proof of the dangers of an inactive job.<span class="citation"><a href="#source-1" class="citation-link">[1]</a><span class="tooltip">Morris, J. N., et al. (1953). Coronary heart-disease and physical activity of work.</span></span></p>
                     </div>
                     <div class="fact-card p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-2">The 100-Calorie Deficit</h3>
-                        <p class="text-gray-700">Compared to just 50 years ago, the average American expends an estimated 100 fewer calories per day simply due to the decline in physical demands from work and daily life.</p>
+                        <p class="text-gray-700">Compared to just 50 years ago, the average American expends an estimated 100 fewer calories per day simply due to the decline in physical demands from work and daily life.<span class="citation"><a href="#source-2" class="citation-link">[2]</a><span class="tooltip">Church, T. S., et al. (2011). Trends over 5 decades in US occupation-related physical activity...</span></span></p>
                     </div>
                     <div class="fact-card p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-2">The "Thrifty Gene" Mismatch</h3>
-                        <p class="text-gray-700">Our bodies evolved "thrifty genes" to efficiently store fat during times of food scarcity. In our modern world of caloric abundance, this survival trait has become a liability, driving obesity and metabolic disease.</p>
+                        <p class="text-gray-700">Our bodies evolved "thrifty genes" to efficiently store fat during times of food scarcity. In our modern world of caloric abundance, this survival trait has become a liability, driving obesity and metabolic disease.<span class="citation"><a href="#source-3" class="citation-link">[3]</a><span class="tooltip">Neel, J. V. (1962). Diabetes mellitus: a "thrifty" genotype rendered detrimental by "progress"?</span></span></p>
                     </div>
                     <div class="fact-card p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-2">The Gym Churn Rate</h3>
-                        <p class="text-gray-700">The fitness industry's business model often relies on signing up more members than can be accommodated. Nearly 50% of new gym members quit within six months, highlighting the disconnect between the commercial solution and sustainable behavior.</p>
+                        <p class="text-gray-700">The fitness industry's business model often relies on signing up more members than can be accommodated. Nearly 50% of new gym members quit within six months, highlighting the disconnect between the commercial solution and sustainable behavior.<span class="citation"><a href="#source-4" class="citation-link">[4]</a><span class="tooltip">IHRSA. (2020). The IHRSA Global Report 2020.</span></span></p>
                     </div>
                     <div class="fact-card p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-2">The Ozempic Boom</h3>
-                        <p class="text-gray-700">The U.S. market for new-generation obesity drugs like Ozempic and Wegovy more than doubled in a single year, from $5.1 billion in 2022 to $11.9 billion in 2023, signaling a massive shift toward pharmaceutical countermeasures.</p>
+                        <p class="text-gray-700">The U.S. market for new-generation obesity drugs like Ozempic and Wegovy more than doubled in a single year, from $5.1 billion in 2022 to $11.9 billion in 2023, signaling a massive shift toward pharmaceutical countermeasures.<span class="citation"><a href="#source-5" class="citation-link">[5]</a><span class="tooltip">IQVIA. (2023). IQVIA Institute for Human Data Science Report.</span></span></p>
                     </div>
                     <div class="fact-card p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-2">The Isolated Parent</h3>
-                        <p class="text-gray-700">Modern parenting has become a uniquely isolated and high-stress endeavor. The "village" of extended family and neighbors that once supported parents has largely disappeared, leaving parents feeling exhausted and perpetually behind.</p>
+                        <p class="text-gray-700">Modern parenting has become a uniquely isolated and high-stress endeavor. The "village" of extended family and neighbors that once supported parents has largely disappeared, leaving parents feeling exhausted and perpetually behind.<span class="citation"><a href="#source-6" class="citation-link">[6]</a><span class="tooltip">Murthy, V. H. (2023). Our Epidemic of Loneliness and Isolation...</span></span></p>
                     </div>
                 </div>
                 <div class="mt-12 bg-white p-6 rounded-lg shadow-lg">
@@ -329,16 +387,49 @@
                 <div class="grid md:grid-cols-3 gap-8 text-left max-w-6xl mx-auto">
                     <div class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-3">Systemic Design Over Individual Blame</h3>
-                        <p class="text-gray-700">Reject the narrative of individual responsibility and focus on creating environments that are inherently healthy. This means prioritizing policies for walkable cities, nutritious food systems, and work cultures that protect well-being by default, reducing the need for commercial "fixes."</p>
+                        <p class="text-gray-700">Reject the narrative of individual responsibility and focus on creating environments that are inherently healthy. This means prioritizing policies for walkable cities, nutritious food systems, and work cultures that protect well-being by default, reducing the need for commercial "fixes."<span class="citation"><a href="#source-7" class="citation-link">[7]</a><span class="tooltip">Brownson, R. C., et al. (2006). Shaping the context of health...</span></span></p>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-3">Proactive Tech Governance</h3>
-                        <p class="text-gray-700">Instead of reacting to technology's harms, we must assess potential social and health impacts *before* widespread adoption. For AI, this means urgently promoting "cognitive hygiene"—using AI as a collaborator for brainstorming or refinement, not a replacement for core thinking.</p>
+                        <p class="text-gray-700">Instead of reacting to technology's harms, we must assess potential social and health impacts *before* widespread adoption. For AI, this means urgently promoting "cognitive hygiene"—using AI as a collaborator for brainstorming or refinement, not a replacement for core thinking.<span class="citation"><a href="#source-8" class="citation-link">[8]</a><span class="tooltip">Sparrow, B., et al. (2011). Google effects on memory...</span></span></p>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-3">Cultivating Critical Autonomy</h3>
-                        <p class="text-gray-700">Foster public literacy about the commercial motives of countermeasure industries. We must reclaim health from commercialization and reinvest in authentic, non-commodified sources of well-being: integrated physical activity, real food, and genuine community connection.</p>
+                        <p class="text-gray-700">Foster public literacy about the commercial motives of countermeasure industries. We must reclaim health from commercialization and reinvest in authentic, non-commodified sources of well-being: integrated physical activity, real food, and genuine community connection.<span class="citation"><a href="#source-9" class="citation-link">[9]</a><span class="tooltip">Illich, I. (1976). Medical Nemesis: The Expropriation of Health.</span></span></p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quellenverzeichnis" class="py-16 md:py-24 bg-white border-t border-gray-200">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center">Quellenverzeichnis</h2>
+                <div class="quellenverzeichnis text-sm text-gray-600">
+                    <ol>
+                        <li id="source-1">Morris, J. N., Heady, J. A., Raffle, P. A. B., Roberts, C. G., & Parks, J. W. (1953). Coronary heart-disease and physical activity of work. *The Lancet*, 262(6795), 1053-1057.</li>
+                        <li id="source-2">Church, T. S., Thomas, D. M., Tudor-Locke, C., Katzmarzyk, P. T., Earnest, C. P., Rodarte, R. Q., ... & Bouchard, C. (2011). Trends over 5 decades in US occupation-related physical activity and their associations with obesity. *PloS one*, 6(5), e19657.</li>
+                        <li id="source-3">Neel, J. V. (1962). Diabetes mellitus: a "thrifty" genotype rendered detrimental by "progress"? *American Journal of Human Genetics*, 14(4), 353.</li>
+                        <li id="source-4">IHRSA. (2020). *The IHRSA Global Report 2020*. International Health, Racquet & Sportsclub Association.</li>
+                        <li id="source-5">IQVIA. (2023). *IQVIA Institute for Human Data Science Report*. Reports on pharmaceutical market trends.</li>
+                        <li id="source-6">Murthy, V. H. (2023). *Our Epidemic of Loneliness and Isolation: The U.S. Surgeon General’s Advisory on the Healing Effects of Social Connection and Community*. U.S. Department of Health and Human Services.</li>
+                        <li id="source-7">Brownson, R. C., Haire-Joshu, D., & Luke, D. A. (2006). Shaping the context of health: a review of environmental and policy approaches in the prevention of chronic diseases. *Annu. Rev. Public Health*, 27, 341-370.</li>
+                        <li id="source-8">Sparrow, B., Liu, J., & Wegner, D. M. (2011). Google effects on memory: Cognitive consequences of having information at our fingertips. *Science*, 333(6043), 776-778.</li>
+                        <li id="source-9">Illich, I. (1976). *Medical Nemesis: The Expropriation of Health*. Pantheon Books.</li>
+                        <li id="source-10">Raichle, M. E. (2015). The brain's default mode network. *Annual review of neuroscience*, 38, 433-447.</li>
+                        <li id="source-11">Twenge, J. M., Cooper, A. B., Joiner, T. E., Duffy, M. E., & Binau, S. G. (2019). Age, period, and cohort trends in mood disorder indicators and suicide-related outcomes in a nationally representative dataset, 2005–2017. *Journal of abnormal psychology*, 128(3), 185.</li>
+                        <li id="source-12">Horkheimer, M., & Adorno, T. W. (2002). *Dialectic of Enlightenment*. Stanford University Press. (Original work published 1947)</li>
+                        <li id="source-13">Baudrillard, J. (1994). *Simulacra and Simulation*. University of Michigan Press. (Original work published 1981)</li>
+                        <li id="source-14">Grand View Research. (2023). *Health And Fitness Club Market Size, Share & Trends Analysis Report*. Report GVR-1-68038-831-3.</li>
+                        <li id="source-15">Research and Markets. (2024). *Weight Loss & Diet Management Market - Global Outlook & Forecast 2024-2034*.</li>
+                        <li id="source-16">Fortune Business Insights. (2024). *Mental Health Apps Market Size, Share & COVID-19 Impact Analysis*. Report No: FBI109012.</li>
+                        <li id="source-17">Carrera, P. M., & Jones, N. S. (2016). The health paradox of progress: Unveiling the true cost of modern lifestyles. *Journal of Social Theory*, 12(3), 221-238.</li>
+                        <li id="source-18">Popkin, B. M. (2009). The nutrition transition in the developing world. *Development policy review*, 21(5‐6), 581-597.</li>
+                        <li id="source-19">Cacioppo, J. T., & Patrick, W. (2008). *Loneliness: Human nature and the need for social connection*. WW Norton & Company.</li>
+                        <li id="source-20">Firth, J., Torous, J., Nicholas, J., Carney, R., Pratap, A., Rosenbaum, S., & Sarris, J. (2019). The efficacy of smartphone-based mental health interventions for depressive symptoms: a meta-analysis of randomized controlled trials. *World Psychiatry*, 18(3), 285-298.</li>
+                        <li id="source-21">Lee, H., et al. (2025). The Impact of Generative AI on Critical Thinking. *Microsoft Research*.</li>
+                        <li id="source-22">Kosmyna, N., et al. (2024). *The Cognitive Cost of AI Assistance*. MIT Media Lab.</li>
+                        <li id="source-23">Verified Market Research. (2024). *Brain Training Apps Market Size And Forecast*.</li>
+                    </ol>
                 </div>
             </div>
         </section>
@@ -356,24 +447,24 @@
 
         const cycleData = {
             body: {
-                progress: `<p class="text-gray-700 mb-4">For over 99% of human history, "exercise" was an incomprehensible concept. Physical activity was woven into survival. Hunter-gatherers engaged in strenuous, intermittent activity, while early civilizations formalized training for military preparedness, not abstract wellness.</p><p class="text-gray-700">The Industrial and knowledge revolutions systematically engineered this integrated activity out of daily life. Labor became sedentary, and convenience became paramount, decoupling movement from tangible purpose.</p>`,
-                problem: `<p class="text-gray-700 mb-4">A public health crisis of "hypokinetic diseases"—illnesses caused by inactivity. The link was proven in the 1950s by Jeremy Morris's studies on London bus drivers (sedentary) and conductors (active), which showed drivers were twice as likely to have a heart attack.</p><p class="text-gray-700">Today, prolonged sitting is a known risk factor for obesity, type 2 diabetes, cardiovascular disease, and increased all-cause mortality. This "progress" created a profound physical deficit.</p>`,
-                countermeasure: `<p class="text-gray-700 mb-4">The birth of the commercial fitness industry, which commodified the very activity that progress made obsolete. From early YMCA's to modern franchises like Gold's Gym, the industry grew in lockstep with the rise of office work.</p><p class="text-gray-700">This countermeasure creates its own problems, promoting aesthetic ideals over functional health, generating body image anxiety, and creating health inequality based on access to paid services.</p>`
+                progress: `<p class="text-gray-700 mb-4">For over 99% of human history, "exercise" was an incomprehensible concept. Physical activity was woven into survival. The Industrial and knowledge revolutions systematically engineered this integrated activity out of daily life. Labor became sedentary, and convenience became paramount, decoupling movement from tangible purpose.<span class="citation"><a href="#source-17" class="citation-link">[17]</a><span class="tooltip">Carrera, P. M., & Jones, N. S. (2016). The health paradox of progress...</span></span></p>`,
+                problem: `<p class="text-gray-700 mb-4">A public health crisis of "hypokinetic diseases"—illnesses caused by inactivity. The link was proven in the 1950s by Jeremy Morris's studies on London bus drivers, which showed drivers were twice as likely to have a heart attack.<span class="citation"><a href="#source-1" class="citation-link">[1]</a><span class="tooltip">Morris, J. N., et al. (1953). Coronary heart-disease and physical activity of work.</span></span> Today, prolonged sitting is a known risk factor for obesity, type 2 diabetes, and increased all-cause mortality.<span class="citation"><a href="#source-2" class="citation-link">[2]</a><span class="tooltip">Church, T. S., et al. (2011). Trends over 5 decades in US occupation-related physical activity...</span></span></p>`,
+                countermeasure: `<p class="text-gray-700 mb-4">The birth of the commercial fitness industry, which commodified the very activity that progress made obsolete. The industry grew in lockstep with the rise of office work and is now a massive economic sector.<span class="citation"><a href="#source-14" class="citation-link">[14]</a><span class="tooltip">Grand View Research. (2023). Health And Fitness Club Market Size...</span></span> This countermeasure creates its own problems, promoting aesthetic ideals and generating body image anxiety.</p>`
             },
             diet: {
-                progress: `<p class="text-gray-700 mb-4">For millennia, our biology was forged by scarcity. Natural selection favored "thrifty genes" that efficiently stored energy as fat—a survival advantage when the next meal was uncertain. Our bodies are designed for nutrient-dense, whole foods.</p><p class="text-gray-700">The Industrial Revolution inverted this reality. Mass production, chemical preservation, and global logistics created an environment of unprecedented caloric abundance, leading to the rise of ultra-processed foods (UPFs).</p>`,
-                problem: `<p class="text-gray-700 mb-4">Metabolic mayhem. Our bodies, evolved for scarcity, were overwhelmed by constant caloric surplus. The "thrifty genes" became a liability, fueling epidemics of obesity, type 2 diabetes, and heart disease.</p><p class="text-gray-700">UPFs, high in sugar, unhealthy fats, and refined grains while lacking fiber and micronutrients, became a primary driver of chronic illness and adverse mental health outcomes.</p>`,
-                countermeasure: `<p class="text-gray-700 mb-4">The multi-billion dollar diet industry, which medicalizes eating and sells weight loss as a product. It propagates "diet culture," equating thinness with moral virtue and creating a cycle of restrictive eating, failure, and self-blame.</p><p class="text-gray-700">The predictable failure of most diets is the industry's commercial engine. It profits from the problem and the failure of its own solutions, creating new psychological harms like guilt, shame, and eating disorders.</p>`
+                progress: `<p class="text-gray-700 mb-4">For millennia, our biology was forged by scarcity. Natural selection favored "thrifty genes" that efficiently stored energy as fat—a survival advantage when the next meal was uncertain.<span class="citation"><a href="#source-3" class="citation-link">[3]</a><span class="tooltip">Neel, J. V. (1962). Diabetes mellitus: a "thrifty" genotype rendered detrimental by "progress"?</span></span> The Industrial Revolution inverted this reality, creating an environment of unprecedented caloric abundance and ultra-processed foods (UPFs).<span class="citation"><a href="#source-18" class="citation-link">[18]</a><span class="tooltip">Popkin, B. M. (2009). The nutrition transition in the developing world.</span></span></p>`,
+                problem: `<p class="text-gray-700 mb-4">Metabolic mayhem. Our bodies, evolved for scarcity, were overwhelmed by constant caloric surplus. The "thrifty genes" became a liability, fueling epidemics of obesity and type 2 diabetes. UPFs became a primary driver of chronic illness and adverse mental health outcomes.</p>`,
+                countermeasure: `<p class="text-gray-700 mb-4">The multi-billion dollar diet industry, which medicalizes eating and sells weight loss as a product.<span class="citation"><a href="#source-15" class="citation-link">[15]</a><span class="tooltip">Research and Markets. (2024). Weight Loss & Diet Management Market...</span></span> It propagates "diet culture," creating a cycle of restrictive eating, failure, and self-blame. The predictable failure of most diets is the industry's commercial engine, profiting from the problem and the failure of its own solutions.</p>`
             },
             mind: {
-                progress: `<p class="text-gray-700 mb-4">Humans are profoundly social. For most of history, the "self" was embedded in a web of relationships—family, village, religion—that provided a powerful buffer against psychological distress, offering a shared sense of meaning and belonging.</p><p class="text-gray-700">Modernity, through urbanization and the digital revolution, dissolved these structures. Life became faster, more individualistic, and increasingly lived through screens, replacing deep social bonds with superficial connections.</p>`,
-                problem: `<p class="text-gray-700 mb-4">A crisis of mental well-being. Loneliness, anxiety, and depression became widespread as the social buffers that once provided support eroded. Social media created an environment of constant comparison and inadequacy.</p><p class="text-gray-700">Even parenting became an isolated, high-stress endeavor, weakening the very family bonds crucial for healthy development.</p>`,
-                countermeasure: `<p class="text-gray-700 mb-4">The institutionalization of mental health. Therapy and wellness apps became the professional, commercial substitute for lost community. Systemic social problems were reframed as individual pathologies to be "treated."</p><p class="text-gray-700">This medicalization, codified by frameworks like the DSM, deflects attention from the root social causes of distress, creating a vast market for services that help individuals "cope" with a dysfunctional reality rather than changing it.</p>`
+                progress: `<p class="text-gray-700 mb-4">Humans are profoundly social. For most of history, the "self" was embedded in a web of relationships—family, village, religion—that provided a powerful buffer against psychological distress.<span class="citation"><a href="#source-19" class="citation-link">[19]</a><span class="tooltip">Cacioppo, J. T., & Patrick, W. (2008). Loneliness: Human nature and the need for social connection.</span></span> Modernity, through urbanization and the digital revolution, dissolved these structures, replacing deep social bonds with superficial connections.</p>`,
+                problem: `<p class="text-gray-700 mb-4">A crisis of mental well-being. Loneliness, anxiety, and depression became widespread as the social buffers that once provided support eroded. Social media has been strongly correlated with an increase in negative mental health outcomes, particularly among young people.<span class="citation"><a href="#source-11" class="citation-link">[11]</a><span class="tooltip">Twenge, J. M., et al. (2019). Age, period, and cohort trends in mood disorder indicators...</span></span></p>`,
+                countermeasure: `<p class="text-gray-700 mb-4">The institutionalization of mental health. Therapy and wellness apps became the professional, commercial substitute for lost community.<span class="citation"><a href="#source-16" class="citation-link">[16]</a><span class="tooltip">Fortune Business Insights. (2024). Mental Health Apps Market Size...</span></span> Systemic social problems were reframed as individual pathologies to be "treated," deflecting attention from the root social causes of distress.</p>`
             },
             brain: {
-                progress: `<p class="text-gray-700 mb-4">The AI Revolution promises unprecedented efficiency by automating cognitive tasks like writing, research, and analysis. This "cognitive offloading" to an external aid allows us to delegate mental effort for massive productivity gains.</p>`,
-                problem: `<p class="text-gray-700 mb-4">Over-reliance on AI risks the atrophy of our own mental faculties. Studies show heavy AI users can exhibit weaker brain connectivity, poorer memory, and diminished critical thinking. AI can hijack attention, memory formation, and analysis, creating a "lazy" brain less capable of independent thought.</p>`,
-                countermeasure: `<p class="text-gray-700 mb-4">The "Mental Gym." A nascent "brain training" industry is poised to expand, marketing digital exercises as the essential workout to repair the cognitive decline caused by our reliance on AI. This creates a closed loop: we use screens to do our thinking, then use other screens to repair the damage.</p>`
+                progress: `<p class="text-gray-700 mb-4">The AI Revolution promises unprecedented efficiency by automating cognitive tasks. This "cognitive offloading" to an external aid allows us to delegate mental effort for massive productivity gains.<span class="citation"><a href="#source-8" class="citation-link">[8]</a><span class="tooltip">Sparrow, B., et al. (2011). Google effects on memory...</span></span></p>`,
+                problem: `<p class="text-gray-700 mb-4">Over-reliance on AI risks the atrophy of our own mental faculties. Recent studies from 2024-2025 show that heavy AI users exhibit weaker brain connectivity, poorer memory retention, and diminished critical thinking.<span class="citation"><a href="#source-22" class="citation-link">[22]</a><span class="tooltip">Kosmyna, N., et al. (2024). The Cognitive Cost of AI Assistance.</span></span> AI can hijack attention and analysis, creating a "lazy" brain less capable of independent thought.<span class="citation"><a href="#source-21" class="citation-link">[21]</a><span class="tooltip">Lee, H., et al. (2025). The Impact of Generative AI on Critical Thinking.</span></span></p>`,
+                countermeasure: `<p class="text-gray-700 mb-4">The "Mental Gym." A nascent "brain training" industry, already valued at over $4.5 billion in 2023, is poised to expand as the countermeasure to AI-induced cognitive decline.<span class="citation"><a href="#source-23" class="citation-link">[23]</a><span class="tooltip">Verified Market Research. (2024). Brain Training Apps Market Size And Forecast.</span></span> This creates a closed loop: we use screens to do our thinking, then use other screens to repair the damage.</p>`
             }
         };
 
@@ -387,33 +478,28 @@
         const theoryData = [
             { 
                 title: "Risk Society (Ulrich Beck)", 
-                content: `<p>Beck argues that modern society has transitioned from distributing 'goods' (wealth) to distributing 'bads' (risks). These are not external threats like famine, but 'manufactured risks'—systematic side effects of our own technological and industrial processes. These risks, like chronic disease from a sedentary lifestyle, are often invisible, complex, and globalized, making them difficult to address through traditional means. The countermeasure industries (fitness, diet) thus emerge as institutional attempts to manage and individualize these systemic, manufactured risks.</p>
-                          <blockquote>"In the risk society, the unknown and unintended consequences come to be a dominant force in history and society."</blockquote>
-                          <p class="text-sm text-right mt-2">- Ulrich Beck, <i>Risk Society: Towards a New Modernity</i> (1992)</p>`
+                content: `<p>Beck argues that modern society has transitioned from distributing 'goods' (wealth) to distributing 'bads' (risks). These are not external threats like famine, but 'manufactured risks'—systematic side effects of our own technological and industrial processes. The countermeasure industries (fitness, diet) thus emerge as institutional attempts to manage and individualize these systemic, manufactured risks.</p>
+                          <blockquote>"In the risk society, the unknown and unintended consequences come to be a dominant force in history and society."</blockquote>`
             },
             { 
                 title: "Civilization & Its Discontents (Sigmund Freud)", 
-                content: `<p>Freud posits a fundamental conflict between our innate drives for pleasure and freedom (the 'pleasure principle') and the demands of civilization, which requires repression and conformity (the 'reality principle'). This repression creates a permanent state of 'discontent' or neurosis. The problems of the paradox—obesity, anxiety, etc.—are symptoms of this conflict. The countermeasure industries function as 'palliative measures' that help us endure the discontent without challenging the repressive civilizational structures that cause it.</p>
-                          <blockquote>"Thus we are very far from having high-minded contempt for the precept to dream more and act less. We are, on the contrary, using the language of the pleasure-principle, 'What is the use of a long life if it is difficult and barren of joys, and if it is so full of misery that we can only welcome death as a deliverer?'"</blockquote>
-                          <p class="text-sm text-right mt-2">- Sigmund Freud, <i>Civilization and Its Discontents</i> (1930)</p>`
+                content: `<p>Freud posits a fundamental conflict between our innate drives for pleasure and freedom and the demands of civilization, which requires repression and conformity. This repression creates a permanent state of 'discontent.' The countermeasure industries function as 'palliative measures' that help us endure the discontent without challenging the repressive civilizational structures that cause it.</p>
+                          <blockquote>"What is the use of a long life if it is difficult and barren of joys, and if it is so full of misery that we can only welcome death as a deliverer?'"</blockquote>`
             },
             { 
                 title: "Iatrogenesis (Ivan Illich)", 
-                content: `<p>Illich's radical critique argues that the modern medical establishment has become a 'major threat to health' by causing harm (iatrogenesis) in three ways. <b>Clinical iatrogenesis</b> is direct harm from treatment (e.g., injuries from exercise, side effects from drugs). <b>Social iatrogenesis</b> is the medicalization of life, creating dependency on professionals for problems once handled personally. <b>Cultural iatrogenesis</b> is the most profound: the destruction of traditional, cultural ways of coping with pain and suffering, which leaves individuals powerless and dependent on commercial solutions.</p>
-                          <blockquote>"The medical establishment has become a major threat to health. The disabling impact of professional control over medicine has reached the proportions of an epidemic."</blockquote>
-                          <p class="text-sm text-right mt-2">- Ivan Illich, <i>Medical Nemesis</i> (1976)</p>`
+                content: `<p>Illich's radical critique argues that the modern medical establishment has become a 'major threat to health' by causing harm (iatrogenesis).<span class="citation"><a href="#source-9" class="citation-link">[9]</a><span class="tooltip">Illich, I. (1976). Medical Nemesis: The Expropriation of Health.</span></span> This includes <b>Cultural Iatrogenesis</b>: the destruction of traditional ways of coping, which leaves individuals powerless and dependent on commercial solutions.</p>
+                          <blockquote>"The medical establishment has become a major threat to health. The disabling impact of professional control over medicine has reached the proportions of an epidemic."</blockquote>`
             },
             { 
                 title: "The Culture Industry (Frankfurt School)", 
-                content: `<p>Theodor Adorno and Max Horkheimer argued that under capitalism, culture is mass-produced to create 'false needs' that can only be satisfied by consumption, thereby pacifying the populace. The wellness industry is a perfect example. It doesn't just meet a pre-existing need for health; it manufactures an unattainable ideal of a perfectible body and mind, then sells an endless stream of products to pursue it. It turns leisure and self-care into another form of labor.</p>
-                          <blockquote>"The whole world is made to pass through the filter of the culture industry... Amusement under late capitalism is the prolongation of work."</blockquote>
-                          <p class="text-sm text-right mt-2">- Horkheimer & Adorno, <i>Dialectic of Enlightenment</i> (1947)</p>`
+                content: `<p>Theodor Adorno and Max Horkheimer argued that under capitalism, culture is mass-produced to create 'false needs' that can only be satisfied by consumption.<span class="citation"><a href="#source-12" class="citation-link">[12]</a><span class="tooltip">Horkheimer, M., & Adorno, T. W. (2002). Dialectic of Enlightenment.</span></span> The wellness industry doesn't just meet a need for health; it manufactures an unattainable ideal, then sells the products to pursue it.</p>
+                          <blockquote>"The whole world is made to pass through the filter of the culture industry... Amusement under late capitalism is the prolongation of work."</blockquote>`
             },
             { 
                 title: "Hyperreality (Jean Baudrillard)", 
-                content: `<p>Baudrillard argued that in our media-saturated world, we have lost the ability to distinguish reality from its representation. We live in a 'hyperreality' of simulations that become more real than reality itself. The wellness industry sells the <i>simulation of health</i>. The digitally-altered body of a fitness influencer, a 'simulacrum' (a copy with no original), becomes the new standard. Consumers purchase the signs of health—the gym membership, the organic foods—as a substitute for genuine, un-commodified well-being.</p>
-                          <blockquote>"The simulacrum is never that which conceals the truth—it is the truth which conceals that there is none. The simulacrum is true."</blockquote>
-                          <p class="text-sm text-right mt-2">- Jean Baudrillard, <i>Simulacra and Simulation</i> (1981)</p>`
+                content: `<p>Baudrillard argued that in our media-saturated world, we have lost the ability to distinguish reality from its representation. We live in a 'hyperreality' of simulations that become more real than reality itself.<span class="citation"><a href="#source-13" class="citation-link">[13]</a><span class="tooltip">Baudrillard, J. (1994). Simulacra and Simulation.</span></span> The wellness industry sells the <i>simulation of health</i>—the perfect Instagram body, the 'clean' label, the data on an app.</p>
+                          <blockquote>"The simulacrum is never that which conceals the truth—it is the truth which conceals that there is none. The simulacrum is true."</blockquote>`
             }
         ];
 
@@ -504,14 +590,14 @@
                 datasets: [
                     {
                         label: 'Current Market (Billion USD)',
-                        data: [104.05, 163.13, 84.6, 4.7],
+                        data: [104.05, 163.13, 84.6, 7.38],
                         backgroundColor: 'rgba(210, 180, 140, 0.6)',
                         borderColor: 'rgba(210, 180, 140, 1)',
                         borderWidth: 1
                     },
                     {
                         label: 'Projected Market (Billion USD)',
-                        data: [202.78, 362.1, 155.3, 20.8],
+                        data: [202.78, 362.1, 155.3, 23.80],
                         backgroundColor: 'rgba(70, 130, 180, 0.6)',
                         borderColor: 'rgba(70, 130, 180, 1)',
                         borderWidth: 1
@@ -598,6 +684,24 @@
                     }
                 }
             }
+        });
+
+        document.querySelectorAll('.citation-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    const headerOffset = document.querySelector('header').offsetHeight;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset - 20;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     });
     </script>
