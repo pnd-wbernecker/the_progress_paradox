@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page application with a sticky top navigation for easy access to all sections. The core of the app is an interactive "Cycle" section where users select a domain (Body, Diet, Mind, and a hypothetical AI case) to dynamically see the "Progress -> Problem -> Countermeasure" pattern unfold in a three-column layout. The AI case is visually distinct to mark it as a projection. This structure transforms the linear report into an exploratory tool, making the central thesis tangible and easy to grasp. -->
-    <!-- Visualization & Content Choices: 1. Countermeasure Markets: Bar Chart (Chart.js) to compare the immense scale of these industries. 2. Workforce Shift: Line Chart (Chart.js) to show the decline of physical labor over time. 3. The Core Cycle: A dynamic four-part layout powered by Vanilla JS. 4. Evidence & Insights: A grid-based section with "fact cards" to present compelling statistics. 5. Theoretical Concepts: An accordion/collapsible card interface (HTML/CSS/JS) to present complex theories. All choices are made to enhance clarity and engagement. -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation. The page opens with the core thesis. The "Exploring the Cycle" section now contains the four interactive icons, placed directly above the content they control. A new, distinct info box appears above the three content cards, providing a sourced justification for the chosen date of each cycle. This structure is more logical and user-friendly. -->
+    <!-- Visualization & Content Choices: 1. The Core Cycle Icons: Now located within the "Cycle" section for better context. 2. Info Box: A new element that dynamically displays sourced information for the selected cycle. 3. Countermeasure Markets: Bar Chart (Chart.js). 4. The Core Cycle Display: A three-column layout controlled by the icons. 5. Evidence & Insights: A grid-based section with "fact cards". 6. Theoretical Concepts: An accordion/collapsible card interface. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -68,17 +68,21 @@
             border-style: solid;
             border-color: #D2B48C;
         }
-        .hypothesis-label {
+        .era-label {
             position: absolute;
             top: -10px;
             right: -10px;
-            background-color: #4682B4;
             color: white;
             font-size: 0.65rem;
             font-weight: bold;
             padding: 2px 6px;
             border-radius: 9999px;
-            text-transform: uppercase;
+        }
+        .era-label.historical {
+             background-color: #D2B48C;
+        }
+        .era-label.future {
+            background-color: #4682B4;
         }
         .accordion-content {
             max-height: 0;
@@ -106,6 +110,7 @@
             <div class="hidden md:flex space-x-8">
                 <a href="#paradox" class="nav-link text-gray-600">The Paradox</a>
                 <a href="#cycle" class="nav-link text-gray-600">The Cycle</a>
+                <a href="#economy" class="nav-link text-gray-600">The Economy</a>
                 <a href="#evidence" class="nav-link text-gray-600">Evidence</a>
                 <a href="#theory" class="nav-link text-gray-600">The Theory</a>
                 <a href="#solutions" class="nav-link text-gray-600">Solutions</a>
@@ -119,6 +124,7 @@
         <div id="mobile-menu" class="hidden md:hidden">
             <a href="#paradox" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Paradox</a>
             <a href="#cycle" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Cycle</a>
+            <a href="#economy" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Economy</a>
             <a href="#evidence" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Evidence</a>
             <a href="#theory" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Theory</a>
             <a href="#solutions" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Solutions</a>
@@ -129,42 +135,40 @@
         <section id="paradox" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">The Progress Paradox</h2>
-                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-12">Modern "progress" systematically generates lifestyle deficits in physical, nutritional, and mental well-being. These deficits are then addressed not by reversing the changes, but by creating new, commercial "countermeasure" industries. This application explores this self-perpetuating cycle, from our physical health to the future of our minds.</p>
-                <div class="bg-[#FDFBF5] p-6 md:p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-bold mb-2">The Countermeasure Economy</h3>
-                    <p class="text-gray-600 mb-6 max-w-2xl mx-auto">We spend billions to fix the problems we create. The management of deficits in fitness, nutrition, and mental well-being are not afterthoughts but major engines of economic growth. This chart shows the staggering market size of these industries.</p>
-                    <div class="chart-container">
-                        <canvas id="marketChart"></canvas>
-                    </div>
-                </div>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Modern "progress" systematically generates lifestyle deficits in physical, nutritional, and mental well-being. These deficits are then addressed not by reversing the changes, but by creating new, commercial "countermeasure" industries. This application explores this self-perpetuating cycle, from our physical health to the future of our minds.</p>
             </div>
         </section>
 
         <section id="cycle" class="py-16 md:py-24">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">The Cycle of Progress & Problems</h2>
-                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Select a domain to see how the paradox unfolds. The first three cases are historical; the fourth is a projection based on the established pattern.</p>
+                 <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Exploring the Cycle</h2>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">The pattern is consistent: a change framed as progress creates a problem, which in turn spawns a commercial solution. Select an icon to explore the cycle.</p>
                 </div>
-
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 mb-12">
                     <button data-cycle="body" class="cycle-btn active flex flex-col items-center space-y-2 p-4 bg-white rounded-lg shadow-md w-24 h-24 md:w-32 md:h-32 justify-center">
+                        <span class="era-label historical">1950s</span>
                         <span class="text-3xl md:text-4xl">🏃</span>
                         <span class="font-semibold text-sm md:text-base">The Body</span>
                     </button>
                     <button data-cycle="diet" class="cycle-btn flex flex-col items-center space-y-2 p-4 bg-white rounded-lg shadow-md w-24 h-24 md:w-32 md:h-32 justify-center">
+                        <span class="era-label historical">1970s</span>
                         <span class="text-3xl md:text-4xl">🍔</span>
                         <span class="font-semibold text-sm md:text-base">The Diet</span>
                     </button>
                     <button data-cycle="mind" class="cycle-btn flex flex-col items-center space-y-2 p-4 bg-white rounded-lg shadow-md w-24 h-24 md:w-32 md:h-32 justify-center">
-                        <span class="text-3xl md:text-4xl">🧠</span>
+                        <span class="era-label historical">2000s</span>
+                        <span class="text-3xl md:text-4xl">🧘</span>
                         <span class="font-semibold text-sm md:text-base">The Mind</span>
                     </button>
-                     <button data-cycle="ai" class="cycle-btn cycle-btn-hypothesis flex flex-col items-center space-y-2 p-4 bg-white rounded-lg shadow-md w-24 h-24 md:w-32 md:h-32 justify-center">
-                        <span class="hypothesis-label">Future</span>
-                        <span class="text-3xl md:text-4xl">🤖</span>
-                        <span class="font-semibold text-sm md:text-base">AI & Cognition</span>
+                     <button data-cycle="brain" class="cycle-btn cycle-btn-hypothesis flex flex-col items-center space-y-2 p-4 bg-white rounded-lg shadow-md w-24 h-24 md:w-32 md:h-32 justify-center">
+                        <span class="era-label future">2030s</span>
+                        <span class="text-3xl md:text-4xl">🧠</span>
+                        <span class="font-semibold text-sm md:text-base">The Brain</span>
                     </button>
+                </div>
+
+                <div id="info-box" class="max-w-3xl mx-auto mb-8 p-3 bg-stone-700 border-l-4 border-stone-500 text-stone-300 text-sm rounded-r-lg">
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
@@ -181,17 +185,24 @@
                         <div id="countermeasure-content"></div>
                     </div>
                 </div>
-                 <div class="mt-12 bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-bold mb-4 text-center">The Data Behind the Shift: The Sedentary Revolution</h3>
-                     <p class="text-gray-600 mb-6 max-w-3xl mx-auto text-center">This chart visualizes the dramatic shift in the American workforce. As "progress" created more office jobs, the physical demands of labor plummeted, creating the physical deficit the fitness industry now aims to solve.</p>
+            </div>
+        </section>
+        
+        <section id="economy" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                 <div class="bg-[#FDFBF5] p-6 md:p-8 rounded-lg shadow-lg">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-2">The Countermeasure Economy</h3>
+                        <p class="text-gray-600 mb-6 max-w-2xl mx-auto">We spend billions to fix the problems we create. The management of deficits in fitness, nutrition, and mental well-being are not afterthoughts but major engines of economic growth. This chart shows the staggering market size of these industries.</p>
+                    </div>
                     <div class="chart-container">
-                        <canvas id="workforceChart"></canvas>
+                        <canvas id="marketChart"></canvas>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <section id="evidence" class="py-16 md:py-24 bg-white">
+
+        <section id="evidence" class="py-16 md:py-24">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">Evidence & Insights</h2>
@@ -223,10 +234,17 @@
                         <p class="text-gray-700">Modern parenting has become a uniquely isolated and high-stress endeavor. The "village" of extended family and neighbors that once supported parents has largely disappeared, leaving parents feeling exhausted and perpetually behind.</p>
                     </div>
                 </div>
+                <div class="mt-12 bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-center">The Data Behind the Shift: The Sedentary Revolution</h3>
+                     <p class="text-gray-600 mb-6 max-w-3xl mx-auto text-center">This chart visualizes the dramatic shift in the American workforce. As "progress" created more office jobs, the physical demands of labor plummeted, creating the physical deficit the fitness industry now aims to solve.</p>
+                    <div class="chart-container">
+                        <canvas id="workforceChart"></canvas>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="theory" class="py-16 md:py-24">
+        <section id="theory" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">The Theory Behind the Paradox</h2>
@@ -237,22 +255,22 @@
             </div>
         </section>
 
-        <section id="solutions" class="py-16 md:py-24 bg-white">
+        <section id="solutions" class="py-16 md:py-24">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">Breaking the Cycle</h2>
                     <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">To move beyond this harmful pattern, we need a fundamental shift in how we approach progress, technology, and health. The solution isn't more countermeasures, but a more conscious design of our world.</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8 text-left max-w-6xl mx-auto">
-                    <div class="bg-[#FDFBF5] p-6 rounded-lg">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-3">Systemic Design Over Individual Blame</h3>
                         <p class="text-gray-700">Reject the narrative of individual responsibility and focus on creating environments that are inherently healthy. This means prioritizing policies for walkable cities, nutritious food systems, and work cultures that protect well-being by default, reducing the need for commercial "fixes."</p>
                     </div>
-                    <div class="bg-[#FDFBF5] p-6 rounded-lg">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-3">Proactive Tech Governance</h3>
                         <p class="text-gray-700">Instead of reacting to technology's harms, we must assess potential social and health impacts *before* widespread adoption. For AI, this means urgently promoting "cognitive hygiene"—using AI as a collaborator for brainstorming or refinement, not a replacement for core thinking.</p>
                     </div>
-                    <div class="bg-[#FDFBF5] p-6 rounded-lg">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold mb-3">Cultivating Critical Autonomy</h3>
                         <p class="text-gray-700">Foster public literacy about the commercial motives of countermeasure industries. We must reclaim health from commercialization and reinvest in authentic, non-commodified sources of well-being: integrated physical activity, real food, and genuine community connection.</p>
                     </div>
@@ -287,11 +305,18 @@
                 problem: `<p class="text-gray-700 mb-4">A crisis of mental well-being. Loneliness, anxiety, and depression became widespread as the social buffers that once provided support eroded. Social media created an environment of constant comparison and inadequacy.</p><p class="text-gray-700">Even parenting became an isolated, high-stress endeavor, weakening the very family bonds crucial for healthy development.</p>`,
                 countermeasure: `<p class="text-gray-700 mb-4">The institutionalization of mental health. Therapy and wellness apps became the professional, commercial substitute for lost community. Systemic social problems were reframed as individual pathologies to be "treated."</p><p class="text-gray-700">This medicalization, codified by frameworks like the DSM, deflects attention from the root social causes of distress, creating a vast market for services that help individuals "cope" with a dysfunctional reality rather than changing it.</p>`
             },
-            ai: {
+            brain: {
                 progress: `<p class="text-gray-700 mb-4">The AI Revolution promises unprecedented efficiency by automating cognitive tasks like writing, research, and analysis. This "cognitive offloading" to an external aid allows us to delegate mental effort for massive productivity gains.</p>`,
                 problem: `<p class="text-gray-700 mb-4">Over-reliance on AI risks the atrophy of our own mental faculties. Studies show heavy AI users can exhibit weaker brain connectivity, poorer memory, and diminished critical thinking. AI can hijack attention, memory formation, and analysis, creating a "lazy" brain less capable of independent thought.</p>`,
                 countermeasure: `<p class="text-gray-700 mb-4">The "Mental Gym." A nascent "brain training" industry is poised to expand, marketing digital exercises as the essential workout to repair the cognitive decline caused by our reliance on AI. This creates a closed loop: we use screens to do our thinking, then use other screens to repair the damage.</p>`
             }
+        };
+
+        const infoBoxData = {
+            body: `<strong>1950s:</strong><br>This decade marks the inflection point when the health risks of sedentary work were first scientifically proven by the landmark 1953 study of London bus drivers, establishing the "problem" that the modern fitness industry would later form to counteract.`,
+            diet: `<strong>1970s:</strong><br>This period saw the convergence of the "low-fat" ideology, a surge in processed "diet" foods, and a sharp increase in available calories in the U.S. food supply, turning dieting into a mass-market phenomenon.`,
+            mind: `<strong>2000s:</strong><br>This marks the beginning of the digital wellness boom and the widespread commercialization of mental health. The first mental health apps and online therapy platforms began to emerge, shifting mental health from a clinical practice to a consumer industry.`,
+            brain: `<strong>2030s:</strong><br>This is a projection based on the current trajectory of AI adoption in knowledge work. It anticipates that as the cognitive effects of AI become more widely understood, the "mental gym" will emerge as a mainstream countermeasure.`
         };
 
         const theoryData = [
@@ -339,8 +364,11 @@
         const progressCol = document.getElementById('progress-col');
         const problemCol = document.getElementById('problem-col');
         const countermeasureCol = document.getElementById('countermeasure-col');
+        const infoBox = document.getElementById('info-box');
 
         function updateCycleContent(cycle) {
+            infoBox.innerHTML = infoBoxData[cycle];
+
             progressCol.classList.remove('visible');
             problemCol.classList.remove('visible');
             countermeasureCol.classList.remove('visible');
@@ -353,7 +381,7 @@
                 progressCol.classList.add('visible');
                 setTimeout(() => problemCol.classList.add('visible'), 100);
                 setTimeout(() => countermeasureCol.classList.add('visible'), 200);
-            }, 500);
+            }, 100); 
         }
 
         const cycleButtons = document.querySelectorAll('.cycle-btn');
