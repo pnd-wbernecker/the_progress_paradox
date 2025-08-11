@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page application with a sticky top navigation for easy access to all sections. The core of the app is an interactive "Cycle" section where users select a domain (Body, Diet, Mind) to dynamically see the "Progress -> Problem -> Countermeasure" pattern unfold in a three-column layout. This structure transforms the linear report into an exploratory tool, making the central thesis tangible and easy to grasp. Data is visualized with interactive charts, and dense theory is broken down into digestible accordion cards. A new "Evidence & Insights" section has been added to provide more factual weight. This design prioritizes user discovery and understanding over passive reading. -->
-    <!-- Visualization & Content Choices: 1. Countermeasure Markets: Bar Chart (Chart.js) to compare the immense scale of these industries. Hover interaction for details. 2. Workforce Shift: Line Chart (Chart.js) to show the decline of physical labor over time. 3. The Core Cycle: A dynamic three-column layout powered by Vanilla JS to demonstrate the report's central thesis interactively. 4. Evidence & Insights: A new grid-based section with "fact cards" to present compelling statistics from the source report. 5. Theoretical Concepts: An accordion/collapsible card interface (HTML/CSS/JS) to present complex theories in a manageable, non-overwhelming format, with expanded text and citations. All choices are made to enhance clarity and engagement. -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation for easy access to all sections. The core of the app is an interactive "Cycle" section where users select a domain (Body, Diet, Mind, and a hypothetical AI case) to dynamically see the "Progress -> Problem -> Countermeasure" pattern unfold in a three-column layout. The AI case is visually distinct to mark it as a projection. This structure transforms the linear report into an exploratory tool, making the central thesis tangible and easy to grasp. -->
+    <!-- Visualization & Content Choices: 1. Countermeasure Markets: Bar Chart (Chart.js) to compare the immense scale of these industries. 2. Workforce Shift: Line Chart (Chart.js) to show the decline of physical labor over time. 3. The Core Cycle: A dynamic four-part layout powered by Vanilla JS. 4. Evidence & Insights: A grid-based section with "fact cards" to present compelling statistics. 5. Theoretical Concepts: An accordion/collapsible card interface (HTML/CSS/JS) to present complex theories. All choices are made to enhance clarity and engagement. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -53,12 +53,32 @@
         }
         .cycle-btn {
             transition: all 0.3s ease;
+            position: relative;
         }
         .cycle-btn.active {
             background-color: #D2B48C;
             color: #FFFFFF;
             transform: translateY(-4px);
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .cycle-btn-hypothesis {
+            border: 2px dashed #9ca3af;
+        }
+        .cycle-btn-hypothesis.active {
+            border-style: solid;
+            border-color: #D2B48C;
+        }
+        .hypothesis-label {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #4682B4;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 9999px;
+            text-transform: uppercase;
         }
         .accordion-content {
             max-height: 0;
@@ -88,7 +108,6 @@
                 <a href="#cycle" class="nav-link text-gray-600">The Cycle</a>
                 <a href="#evidence" class="nav-link text-gray-600">Evidence</a>
                 <a href="#theory" class="nav-link text-gray-600">The Theory</a>
-                <a href="#future" class="nav-link text-gray-600">The Future</a>
                 <a href="#solutions" class="nav-link text-gray-600">Solutions</a>
             </div>
             <div class="md:hidden">
@@ -102,7 +121,6 @@
             <a href="#cycle" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Cycle</a>
             <a href="#evidence" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Evidence</a>
             <a href="#theory" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Theory</a>
-            <a href="#future" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Future</a>
             <a href="#solutions" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Solutions</a>
         </div>
     </header>
@@ -126,10 +144,10 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">The Cycle of Progress & Problems</h2>
-                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Select a domain to see how the paradox unfolds. For each area, "progress" introduced a change that led to a new problem, which in turn spawned a commercial countermeasure.</p>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Select a domain to see how the paradox unfolds. The first three cases are historical; the fourth is a projection based on the established pattern.</p>
                 </div>
 
-                <div class="flex justify-center items-center space-x-4 md:space-x-8 mb-12">
+                <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 mb-12">
                     <button data-cycle="body" class="cycle-btn active flex flex-col items-center space-y-2 p-4 bg-white rounded-lg shadow-md w-24 h-24 md:w-32 md:h-32 justify-center">
                         <span class="text-3xl md:text-4xl">🏃</span>
                         <span class="font-semibold text-sm md:text-base">The Body</span>
@@ -141,6 +159,11 @@
                     <button data-cycle="mind" class="cycle-btn flex flex-col items-center space-y-2 p-4 bg-white rounded-lg shadow-md w-24 h-24 md:w-32 md:h-32 justify-center">
                         <span class="text-3xl md:text-4xl">🧠</span>
                         <span class="font-semibold text-sm md:text-base">The Mind</span>
+                    </button>
+                     <button data-cycle="ai" class="cycle-btn cycle-btn-hypothesis flex flex-col items-center space-y-2 p-4 bg-white rounded-lg shadow-md w-24 h-24 md:w-32 md:h-32 justify-center">
+                        <span class="hypothesis-label">Future</span>
+                        <span class="text-3xl md:text-4xl">🤖</span>
+                        <span class="font-semibold text-sm md:text-base">AI & Cognition</span>
                     </button>
                 </div>
 
@@ -214,30 +237,7 @@
             </div>
         </section>
 
-        <section id="future" class="py-16 md:py-24 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">The Next Frontier: The Outsourced Mind</h2>
-                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">The paradox continues. The rise of Artificial Intelligence represents the next great lifestyle shift, creating a new potential deficit—cognitive atrophy—and the "mental gym" as its emerging countermeasure.</p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <h3 class="text-2xl font-bold mb-4 border-b-2 border-[#D2B48C] pb-2">1. The "Progress"</h3>
-                        <p class="text-gray-700">The AI Revolution promises unprecedented efficiency by automating cognitive tasks like writing, research, and analysis. This "cognitive offloading" to an external aid allows us to delegate mental effort for massive productivity gains.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <h3 class="text-2xl font-bold mb-4 border-b-2 border-[#4682B4] pb-2">2. The Problem</h3>
-                        <p class="text-gray-700">Over-reliance on AI risks the atrophy of our own mental faculties. Studies show heavy AI users can exhibit weaker brain connectivity, poorer memory, and diminished critical thinking. AI can hijack attention, memory formation, and analysis, creating a "lazy" brain less capable of independent thought.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <h3 class="text-2xl font-bold mb-4 border-b-2 border-gray-400 pb-2">3. The Countermeasure</h3>
-                        <p class="text-gray-700">The "Mental Gym." A nascent "brain training" industry is poised to expand, marketing digital exercises as the essential workout to repair the cognitive decline caused by our reliance on AI. This creates a closed loop: we use screens to do our thinking, then use other screens to repair the damage.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="solutions" class="py-16 md:py-24">
+        <section id="solutions" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">Breaking the Cycle</h2>
@@ -286,6 +286,11 @@
                 progress: `<p class="text-gray-700 mb-4">Humans are profoundly social. For most of history, the "self" was embedded in a web of relationships—family, village, religion—that provided a powerful buffer against psychological distress, offering a shared sense of meaning and belonging.</p><p class="text-gray-700">Modernity, through urbanization and the digital revolution, dissolved these structures. Life became faster, more individualistic, and increasingly lived through screens, replacing deep social bonds with superficial connections.</p>`,
                 problem: `<p class="text-gray-700 mb-4">A crisis of mental well-being. Loneliness, anxiety, and depression became widespread as the social buffers that once provided support eroded. Social media created an environment of constant comparison and inadequacy.</p><p class="text-gray-700">Even parenting became an isolated, high-stress endeavor, weakening the very family bonds crucial for healthy development.</p>`,
                 countermeasure: `<p class="text-gray-700 mb-4">The institutionalization of mental health. Therapy and wellness apps became the professional, commercial substitute for lost community. Systemic social problems were reframed as individual pathologies to be "treated."</p><p class="text-gray-700">This medicalization, codified by frameworks like the DSM, deflects attention from the root social causes of distress, creating a vast market for services that help individuals "cope" with a dysfunctional reality rather than changing it.</p>`
+            },
+            ai: {
+                progress: `<p class="text-gray-700 mb-4">The AI Revolution promises unprecedented efficiency by automating cognitive tasks like writing, research, and analysis. This "cognitive offloading" to an external aid allows us to delegate mental effort for massive productivity gains.</p>`,
+                problem: `<p class="text-gray-700 mb-4">Over-reliance on AI risks the atrophy of our own mental faculties. Studies show heavy AI users can exhibit weaker brain connectivity, poorer memory, and diminished critical thinking. AI can hijack attention, memory formation, and analysis, creating a "lazy" brain less capable of independent thought.</p>`,
+                countermeasure: `<p class="text-gray-700 mb-4">The "Mental Gym." A nascent "brain training" industry is poised to expand, marketing digital exercises as the essential workout to repair the cognitive decline caused by our reliance on AI. This creates a closed loop: we use screens to do our thinking, then use other screens to repair the damage.</p>`
             }
         };
 
