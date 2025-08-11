@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page application with a sticky top navigation. The page opens with the core thesis. The "Exploring the Cycle" section now contains the four interactive icons, placed directly above the content they control. A new, distinct info box appears above the three content cards, providing a sourced justification for the chosen date of each cycle. This structure is more logical and user-friendly. -->
-    <!-- Visualization & Content Choices: 1. The Core Cycle Icons: Now located within the "Cycle" section for better context. 2. Info Box: A new element that dynamically displays sourced information for the selected cycle. 3. Countermeasure Markets: Bar Chart (Chart.js). 4. The Core Cycle Display: A three-column layout controlled by the icons. 5. Evidence & Insights: A grid-based section with "fact cards". 6. Theoretical Concepts: An accordion/collapsible card interface. -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation. The page now opens with a provocative, styled catchphrase to immediately hook the user. The "Exploring the Cycle" section contains the four interactive icons, placed directly above the content they control. A distinct info box appears above the three content cards, providing a sourced justification for the chosen date of each cycle. -->
+    <!-- Visualization & Content Choices: 1. Catchphrase: A new, prominently styled quote at the top. 2. The Core Cycle Icons: Located within the "Cycle" section for better context. 3. Info Box: A dynamic element displaying sourced information. 4. Countermeasure Markets: Bar Chart (Chart.js). 5. The Core Cycle Display: A three-column layout. 6. Evidence & Insights: A grid-based section with "fact cards". 7. Theoretical Concepts: An accordion/collapsible card interface. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -19,8 +19,21 @@
             background-color: #FDFBF5;
             color: #36454F;
         }
-        h1, h2, h3 {
+        h1, h2, h3, .catchphrase {
             font-family: 'Lora', serif;
+        }
+        .catchphrase-container {
+            position: relative;
+        }
+        .catchphrase::before {
+            content: '“';
+            position: absolute;
+            top: -1.5rem;
+            left: -2.5rem;
+            font-size: 8rem;
+            color: rgba(54, 69, 79, 0.08);
+            z-index: 0;
+            line-height: 1;
         }
         .chart-container {
             position: relative;
@@ -132,7 +145,15 @@
     </header>
 
     <main>
-        <section id="paradox" class="py-16 md:py-24 bg-white">
+        <section class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center catchphrase-container">
+                    <h2 class="catchphrase text-3xl md:text-4xl font-semibold italic text-gray-700 relative z-10">First, we outsourced movement and bought it back as a gym membership. Now that we're outsourcing thought, what will the subscription cost?</h2>
+                </div>
+            </div>
+        </section>
+
+        <section id="paradox" class="py-16 md:py-24 pt-0 bg-white">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">The Progress Paradox</h2>
                 <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Modern "progress" systematically generates lifestyle deficits in physical, nutritional, and mental well-being. These deficits are then addressed not by reversing the changes, but by creating new, commercial "countermeasure" industries. This application explores this self-perpetuating cycle, from our physical health to the future of our minds.</p>
